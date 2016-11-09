@@ -87,6 +87,7 @@ def main():
     # find gcd, linear equation
     line1 = "The GCD of %d and %d is: %d\n" % (a, b, euclid(a, b))
     gcd, coef_a, coef_b = extended_euclid(a, b)
+    # TODO: what is meant by "ignore the sign of the coefficients"?
     line2 = "Coefficient of a: %d\n" % coef_a
     line3 = "Coefficient of b: %d\n" % coef_b
     # write results to file
@@ -98,6 +99,7 @@ def main():
 
 
 ######################### FOR TESTING PURPOSES ONLY ##############################################
+# TODO: re-implement tests
 import random
 import sys
 import fractions
