@@ -44,15 +44,30 @@ def algo_shell():
     """
     PURPOSE: gets a, b from user to feed into GCD(a, b) and linear_comb(a, b)
     """
-    a = int(raw_input("Enter an integer value for a: "))
+    ### Reads a and b from text file, which the users input the filename containin a and b ###
+    a = int
+    b = int
+    prog_trace_file = 'gcd.txt'
+    #w_file = 'write_file.txt'
+    with open(prog_trace_file, 'r') as fhan:
+        prog_trace = fhan.readlines()
+        print (prog_trace)
+
+
+
+    # f = open('gcd.txt', 'r')
+    # print f.read()
+
+
+    a = int(input("Enter an integer value for a: "))
     # ensure a >= 0
     while a < 0:
-        a = int(raw_input("Enter an integer value for a: "))
+        a = int(input("Enter an integer value for a: "))
 
-    b = int(raw_input("Enter an integer value for b: "))
+    b = int(input("Enter an integer value for b: "))
     # ensure b >= 0
     while b < 0:
-        b = int(raw_input("Enter an integer value for b: "))
+        b = int(input("Enter an integer value for b: "))
 
     # ensure a >= b
     if b > a:
@@ -60,10 +75,18 @@ def algo_shell():
         b = a
         a = temp
 
-    print "The GCD of %d and %d is: %d" % (a, b, euclid(a, b))
-    gcd, c, d = extended_euclid(a, b)
-    print "The linear combination of GCD(%d, %d) is: %d = (%d) * %d + (%d) * %d" % (a, b, gcd, c, a, d, b)
+    """ Writing the answer to the external text file called wfile.txt """
+    """ It updates everytime a new number is entered. It overwrites previous calculation """
 
+
+    line1 = "The GCD of %d and %d is: %d" % (a, b, euclid(a, b))
+    w_file = raw_input("Enter the name of the output file to store the results: ")
+    wfile = open(w_file,'w')
+    wfile.write(line1)
+
+    gcd, c, d = extended_euclid(a, b)
+    line2 = "\nThe linear combination of GCD(%d, %d) is: %d = (%d) * %d + (%d) * %d" % (a, b, gcd, c, a, d, b)
+    wfile.write(line2)
 
 ######################### FOR TESTING PURPOSES ONLY ##############################################
 import random
