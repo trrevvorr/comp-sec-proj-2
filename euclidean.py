@@ -44,19 +44,30 @@ def get_user_input():
     """ gets the input and output file names from user, returns: (a, b, output_file) """
 
     in_file = raw_input("Enter the name of the input file that contains a and b: ")
-    with open(in_file, "r") as in_f:
-        lines = in_f.readlines()
-        a = int(lines[0])
-        if a < 0:
-            raise ValueError("a = %d but should be >= 0" % a)
-        b = int(lines[1])
-        if b < 0:
-            raise ValueError("b = %d but should be >= 0" % b)
-        # ensure a >= b
-        if a < b:
-            temp = b
-            b = a
-            a = temp
+    try:
+        with open(in_file, "r") as in_f:
+            lines = in_f.readlines()
+            a = int(lines[0])
+            if a < 0:
+                raise ValueError("a = %d but should be >= 0" % a)
+            b = int(lines[1])
+            if b < 0:
+                raise ValueError("b = %d but should be >= 0" % b)
+            # ensure a >= b
+            if a < b:
+                temp = b
+                b = a
+                a = temp
+    except IOError:
+        print "Invalid input file. Try using 'input.txt'."
+        exit(1)
+    except ValueError:
+        print "Invalid data format type in", in_file
+        print "CORRECT FORMAT: line 1: a (int), line 2: b (int)"
+        print "FILE CONTENTS:"
+        for line in lines:
+            print line,
+        exit(1)
 
     out_file = raw_input("Enter the name of the output file to store the GCD of a and b,\
     and the linear combination of GCD(a, b): ")
