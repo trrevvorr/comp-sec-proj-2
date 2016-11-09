@@ -1,0 +1,3 @@
+The GCD of 35 and 15 is: 5
+Coefficient of a: 1
+Coefficient of b: -2

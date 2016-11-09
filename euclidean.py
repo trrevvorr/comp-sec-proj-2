@@ -1,8 +1,8 @@
 ############################################################################
 # TREVOR ROSS & LUIS PEREIRA
 # CS 3600 - Intro to Comp Security
-# Project 1
-# 10/5/16
+# Project 2
+# 11/9/16
 ############################################################################
 
 def euclid(a, b):
@@ -40,53 +40,51 @@ def extended_euclid(a, b):
         return (gcd, new_c, new_d)
 
 
-def algo_shell():
+def get_user_input():
+    """ gets the input and output file names from user, returns: (a, b, output_file) """
+
+    in_file = raw_input("Enter the name of the input file that contains a and b: ")
+    with open(in_file, "r") as in_f:
+        lines = in_f.readlines()
+        a = int(lines[0])
+        if a < 0:
+            raise ValueError("a = %d but should be >= 0" % a)
+        b = int(lines[1])
+        if b < 0:
+            raise ValueError("b = %d but should be >= 0" % b)
+        # ensure a >= b
+        if a < b:
+            temp = b
+            b = a
+            a = temp
+
+    out_file = raw_input("Enter the name of the output file to store the GCD of a and b,\
+    and the linear combination of GCD(a, b): ")
+
+    return (a, b, out_file)
+
+
+def main():
     """
     PURPOSE: gets a, b from user to feed into GCD(a, b) and linear_comb(a, b)
     """
-    ### Reads a and b from text file, which the users input the filename containin a and b ###
-    a = int
-    b = int
-    prog_trace_file = 'gcd.txt'
-    #w_file = 'write_file.txt'
-    with open(prog_trace_file, 'r') as fhan:
-        prog_trace = fhan.readlines()
-        print (prog_trace)
+    # Writing the answer to the external text file called wfile.txt
+    # It updates everytime a new number is entered. It overwrites previous calculation
 
+    # get input from files/user
+    a, b, out_file = get_user_input()
+    # find gcd, linear equation
+    line1 = "The GCD of %d and %d is: %d\n" % (a, b, euclid(a, b))
+    gcd, coef_a, coef_b = extended_euclid(a, b)
+    line2 = "Coefficient of a: %d\n" % coef_a
+    line3 = "Coefficient of b: %d\n" % coef_b
+    # write results to file
+    with open(out_file,'w') as wfile:
+        wfile.write(line1)
+        wfile.write(line2)
+        wfile.write(line3)
+    print "FINISHED"
 
-
-    # f = open('gcd.txt', 'r')
-    # print f.read()
-
-
-    a = int(input("Enter an integer value for a: "))
-    # ensure a >= 0
-    while a < 0:
-        a = int(input("Enter an integer value for a: "))
-
-    b = int(input("Enter an integer value for b: "))
-    # ensure b >= 0
-    while b < 0:
-        b = int(input("Enter an integer value for b: "))
-
-    # ensure a >= b
-    if b > a:
-        temp = b
-        b = a
-        a = temp
-
-    """ Writing the answer to the external text file called wfile.txt """
-    """ It updates everytime a new number is entered. It overwrites previous calculation """
-
-
-    line1 = "The GCD of %d and %d is: %d" % (a, b, euclid(a, b))
-    w_file = raw_input("Enter the name of the output file to store the results: ")
-    wfile = open(w_file,'w')
-    wfile.write(line1)
-
-    gcd, c, d = extended_euclid(a, b)
-    line2 = "\nThe linear combination of GCD(%d, %d) is: %d = (%d) * %d + (%d) * %d" % (a, b, gcd, c, a, d, b)
-    wfile.write(line2)
 
 ######################### FOR TESTING PURPOSES ONLY ##############################################
 import random
@@ -135,6 +133,6 @@ def test(num_tests):
     return "TESTS SUCCESSFUL"
 #########################  END FOR TESTING PURPOSES ONLY ##########################################
 
-
-algo_shell()
-# print test(100) # Uncomment to run tests
+if __name__ == "__main__":
+    main()
+    # print test(100) # Uncomment to run tests
