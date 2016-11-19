@@ -1,3 +1,2 @@
-The GCD of 35 and 15 is: 5
-Coefficient of a: 1
-Coefficient of b: -2
+Public key (N, e): (988027, 13)
+Private key d: 303397
