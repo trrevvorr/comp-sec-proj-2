@@ -4,8 +4,6 @@
 # Project 3
 # 10/16/16
 ############################################################################
-import sys
-sys.setrecursionlimit(10000)
 
 def extended_euclid(a, b):
     """
